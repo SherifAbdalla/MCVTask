@@ -1,0 +1,62 @@
+﻿@model MCVTask.ViewModels.EmployeeEditorViewModel
+
+
+@{ 
+
+}
+
+<form data-ajax-url="/Employees/CreateOrUpdate" data-ajax="true" data-ajax-method="post" data-ajax-success="OnSuccess">
+    <input type="hidden" asp-for="Id"/>
+    <div class="row">
+        <div class="form-group col-6">
+            <label class="control-label" asp-for="Name"></label>
+            <input class="form-control" asp-for="Name" name="Name" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-6">
+            <label class="control-label" asp-for="Title"></label>
+            <input class="form-control" asp-for="Title" name="Title" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-6">
+            <label class="control-label" asp-for="HiringDate"></label>
+            <input type="date" class="form-control" asp-for="HiringDate" name="HiringDate" />
+            <span asp-validation-for="HiringDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-6">
+            <label class="control-label" asp-for="Birthday"></label>
+            <input class="form-control" type="date" asp-for="Birthday" name="Birthday" />
+            <span asp-validation-for="Birthday" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-6">
+            <label asp-for="DepartmentId" class="control-label"></label>
+            @*<input asp-for="DepartmentId" class="form-control" />*@
+
+            @Html.DropDownListFor(m => m.DepartmentId, new SelectList(ViewBag.departments, "Id", "Name"), new { @class = "form-control", @name = "Birthday" })
+            <span asp-validation-for="DepartmentId" class="text-danger"></span>
+        </div>
+        <div class="form-group col-12">
+            <div class="col-offset-2">
+            <input type="submit" value="Save" class="btn " style="background: linear-gradient( 90deg, #00aee0 0%, #00fedc 100%); margin: 5px" />
+            </div>
+        </div>
+        </div>
+</form>
+
+<script>
+    @{ var mode = (Model != null) ? (Model.Id.HasValue) ? "Update" : "Create" : "Create"; }
+    var mode = '@mode'
+        function OnSuccess() {
+
+            var location = window.location;
+            swal({
+            type: 'success',
+            text: 'The Employee ' + mode + ' Successfully',
+            icon: 'success'
+            }).then(function () { return location.href = window.location.protocol + "//" + window.location.host + '/Employees' });
+        }
+</script>

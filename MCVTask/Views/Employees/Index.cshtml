@@ -1,0 +1,163 @@
+﻿@model X.PagedList.IPagedList<MCVTask.ViewModels.EmployeeViewModel>
+@using X.PagedList.Mvc.Core
+
+<a asp-action="CreateOrUpdate" asp-controller="Employees" class="btn" style="background: linear-gradient( 90deg, #00aee0 0%, #00fedc 100%); margin: 5px">Add Employee</a>
+<button class="btn btn-secondary"
+        data-target="#searchModal" data-toggle="modal">
+    <i class="fa fa-search"></i>
+    Search
+</button>
+<br />
+@if (Model.Count() != 0)
+{
+    <table class="table">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Hiring Date
+            </th>
+            <th>
+                Birthday
+            </th>
+
+            <th>
+                Department
+            </th>
+            @*<th>
+                    Instructor Name
+                </th>*@
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.Title
+                </td>
+                <td>
+                    @item.HiringDate
+                </td>
+                <td>
+                    @item.Birthday
+                </td>
+                <td>
+                    @item.Department
+                </td>
+                @*<td>
+                        @item.Instructor.FullName
+                    </td>*@
+                <td>
+                    @Html.ActionLink("Edit", "CreateOrUpdate", "Employees", new { id = item.Id }) |
+                    @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |*@
+                    <a href="#" onclick="openModal(@item.Id)">Delete</a>
+                </td>
+            </tr>
+        }
+
+    </table>
+    @Html.PagedListPager(Model, p => Url.Action("Index", new { id = ViewBag.id, pageIndex = p }));
+}
+else
+{
+    <h1>No Employee</h1>
+}
+
+<script>
+    let coursesid;
+
+    function openModal(id) {
+        coursesid = id;
+        $('#modalButton').click();
+    }
+    function deleteCourse() {
+        debugger;
+        $.ajax({
+            url: window.location.origin + "/Employees/Delete/" + coursesid, type: "Delete", success: function (e) {
+                debugger;
+                window.location.reload();
+            }
+        });
+    }
+</script>
+
+<!-- Button trigger modal -->
+<button id="modalButton" type="button" style="display:none" hidden="hidden" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal">
+    Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Course</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Do you want delete this Employee?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" onclick="deleteCourse()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <form role="form" asp-action="Search" asp-controller="Employees" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="searchModalLabel">Search</h5>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">x</button>
+                </div>
+                <div class="modal-body">
+                    <!--search component-->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-lg-11">
+                                    <h3>
+                                        Search
+
+                                    </h3>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <partial name="_Search" model="null" />
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                            data-dismiss="modal">
+                        Close
+                    </button>
+                    <input type="submit" value="Search" class="btn btn-primary" />
+
+                </div>
+                </form>
+        </div>
+    </div>
+</div>

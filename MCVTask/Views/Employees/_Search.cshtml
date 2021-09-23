@@ -1,0 +1,108 @@
+﻿@model MCVTask.ViewModels.EmployeeSearchViewMode
+
+
+
+    <div class="card-body">
+        <div class="row">
+            <!--Name-->
+            <div class="col-lg-12 col-md-12 form-cell">
+                <div class="row">
+                    <div class="col-4">
+                        <label asp-for="Name">Name</label>
+                    </div>
+                    <div class="col-lg-8">
+                        <input asp-for="Name" name="Name" 
+                               class="form-control" />
+
+                    </div>
+                </div>
+            </div>
+
+            <!--Title-->
+            <div class="col-lg-12 col-md-12 form-cell">
+                <div class="row">
+                    <div class="col-4">
+                        <label asp-for="Title">Title</label>
+                    </div>
+                    <div class="col-lg-8">
+                        <input type="text" asp-for="Title" name="Title"
+                               class="form-control" />
+
+                    </div>
+                </div>
+            </div>
+
+            <!--MinHiringDate-->
+            <div class="col-lg-12 col-md-12 form-cell">
+                <div class="row">
+                    <div class="col-4">
+                        <label asp-for="MinHiringDate">Min Hiring Date</label>
+                    </div>
+                    <div class="col-lg-8">
+                        <input type="date" asp-for="MinHiringDate" name="MinHiringDate"
+                               class="form-control" />
+
+                    </div>
+                </div>
+            </div>
+
+            <!--MaxHiringDate-->
+            <div class="col-lg-12 col-md-12 form-cell">
+                <div class="row">
+                    <div class="col-4">
+                        <label asp-for="MaxHiringDate">Max Hiring Date</label>
+                    </div>
+                    <div class="col-lg-8">
+                        <input type="date" asp-for="MaxHiringDate" name="MaxHiringDate"
+                               class="form-control" />
+
+                    </div>
+                </div>
+            </div>
+
+            <!--MinBirthday-->
+            <div class="col-lg-12 col-md-12 form-cell">
+                <div class="row">
+                    <div class="col-4">
+                        <label asp-for="MinBirthday">Min Birthday</label>
+                    </div>
+                    <div class="col-lg-8">
+                        <input type="date" asp-for="MinBirthday" name="MinBirthday"
+                               class="form-control" />
+
+                    </div>
+                </div>
+            </div>
+
+            <!--MaxBirthday-->
+            <div class="col-lg-12 col-md-12 form-cell">
+                <div class="row">
+                    <div class="col-4">
+                        <label asp-for="MaxBirthday">Max Birthday</label>
+                    </div>
+                    <div class="col-lg-8">
+                        <input type="date" asp-for="MaxBirthday" name="MaxBirthday"
+                               class="form-control" />
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!--Department-->
+            <div class="col-lg-12 col-md-12 form-cell">
+                <div class="row">
+                    <div class="col-4">
+                        <label for="Department">Department</label>
+                    </div>
+                    <div class="col-lg-8">
+                        @Html.DropDownListFor(m => m.Department, new SelectList(ViewBag.departments, "Id", "Name"), new { @class = "form-control", @name = "Birthday" })
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
